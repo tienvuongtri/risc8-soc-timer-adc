@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_top_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="std" />
+            <top_module name="tb_top" />
+            <top_module name="timer_adc_pkg" />
+            <top_module name="uvm_pkg" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="53.975001 us"></ZoomEndTime>
+      <Cursor1Time time="53.975000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="189"></NameColumnWidth>
+      <ValueColumnWidth column_width="117"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="20" />
+   <wvobject fp_name="/tb_top/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_apb_if/psel" type="logic">
+      <obj_property name="ElementShortName">psel</obj_property>
+      <obj_property name="ObjectShortName">psel</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_apb_if/penable" type="logic">
+      <obj_property name="ElementShortName">penable</obj_property>
+      <obj_property name="ObjectShortName">penable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_apb_if/pwrite" type="logic">
+      <obj_property name="ElementShortName">pwrite</obj_property>
+      <obj_property name="ObjectShortName">pwrite</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_apb_if/paddr" type="array">
+      <obj_property name="ElementShortName">paddr[3:0]</obj_property>
+      <obj_property name="ObjectShortName">paddr[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_apb_if/pwdata" type="array">
+      <obj_property name="ElementShortName">pwdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">pwdata[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_apb_if/prdata" type="array">
+      <obj_property name="ElementShortName">prdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">prdata[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_adc_if/vin" type="array">
+      <obj_property name="ElementShortName">vin[0:3]</obj_property>
+      <obj_property name="ObjectShortName">vin[0:3]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_adc_if/vhold" type="other">
+      <obj_property name="ElementShortName">vhold</obj_property>
+      <obj_property name="ObjectShortName">vhold</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_adc_if/offset_v" type="other">
+      <obj_property name="ElementShortName">offset_v</obj_property>
+      <obj_property name="ObjectShortName">offset_v</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_adc_if/noise_lsb" type="other">
+      <obj_property name="ElementShortName">noise_lsb</obj_property>
+      <obj_property name="ObjectShortName">noise_lsb</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_adc_if/adc_sample" type="logic">
+      <obj_property name="ElementShortName">adc_sample</obj_property>
+      <obj_property name="ObjectShortName">adc_sample</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_adc_if/adc_dac" type="array">
+      <obj_property name="ElementShortName">adc_dac[7:0]</obj_property>
+      <obj_property name="ObjectShortName">adc_dac[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_adc_if/eoc" type="logic">
+      <obj_property name="ElementShortName">eoc</obj_property>
+      <obj_property name="ObjectShortName">eoc</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_adc_if/conv_result" type="array">
+      <obj_property name="ElementShortName">conv_result[7:0]</obj_property>
+      <obj_property name="ObjectShortName">conv_result[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/dut/fifo_level" type="array">
+      <obj_property name="ElementShortName">fifo_level[3:0]</obj_property>
+      <obj_property name="ObjectShortName">fifo_level[3:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/dut/fifo_full" type="logic">
+      <obj_property name="ElementShortName">fifo_full</obj_property>
+      <obj_property name="ObjectShortName">fifo_full</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/dut/fifo_overflow" type="logic">
+      <obj_property name="ElementShortName">fifo_overflow</obj_property>
+      <obj_property name="ObjectShortName">fifo_overflow</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/dut/u_regs/irq_stat" type="array">
+      <obj_property name="ElementShortName">irq_stat[5:0]</obj_property>
+      <obj_property name="ObjectShortName">irq_stat[5:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/u_apb_if/irq" type="logic">
+      <obj_property name="ElementShortName">irq</obj_property>
+      <obj_property name="ObjectShortName">irq</obj_property>
+   </wvobject>
+</wave_config>

@@ -1,0 +1,148 @@
+// Part A: Read peripheral ID (0xFF) -> MEM[0x80] = 0xA8
+8EFF // 00: LDI R7, 0xFF
+A3C0 // 01: LD  R1, [R7]
+8C80 // 02: LDI R6, 0x80
+B380 // 03: ST  R1, [R6]
+8410 // 04: LDI R2, 0x10 (EMPTY bit mask)
+8000 // 05: LDI R0, 0x00 (constant 0)
+// Part B: Single software conversion on CH1 (1.111 V -> 0x56)
+8EF6 // 06: LDI R7, 0xF6 (ADC_SMP)
+8203 // 07: LDI R1, 0x03
+B3C0 // 08: ST  R1, [R7]
+8EF7 // 09: LDI R7, 0xF7 (ADC_DIV)
+B1C0 // 0A: ST  R0, [R7]
+8EF5 // 0B: LDI R7, 0xF5 (ADC_CTRL)
+8213 // 0C: LDI R1, 0x13 (EN=1, START=1, CH=1)
+B3C0 // 0D: ST  R1, [R7]
+8EFC // 0E: LDI R7, 0xFC (ADC_STAT)
+A3C0 // 0F: LD  R1, [R7] (waitB)
+3250 // 10: AND R1, R1, R2
+E00F // 11: BNZ 0x0F
+8EFB // 12: LDI R7, 0xFB (ADC_RCH)
+A3C0 // 13: LD  R1, [R7]
+9C01 // 14: ADDI R6, 0x01 (0x81)
+B380 // 15: ST  R1, [R6]
+8EFA // 16: LDI R7, 0xFA (ADC_DATA)
+A3C0 // 17: LD  R1, [R7]
+9C01 // 18: ADDI R6, 0x01 (0x82)
+B380 // 19: ST  R1, [R6]
+// Part C: Timer-overflow triggered conversions on CH2 (2.0 V -> 0x9B), 4 samples
+8EFE // 1A: LDI R7, 0xFE (IRQ_STAT)
+823F // 1B: LDI R1, 0x3F
+B3C0 // 1C: ST  R1, [R7] (clear old flags)
+8EF1 // 1D: LDI R7, 0xF1 (TMR_PRESC)
+8203 // 1E: LDI R1, 0x03
+B3C0 // 1F: ST  R1, [R7]
+8EF2 // 20: LDI R7, 0xF2 (TMR_LOAD)
+8218 // 21: LDI R1, 0x18 (24)
+B3C0 // 22: ST  R1, [R7]
+8EF3 // 23: LDI R7, 0xF3 (TMR_CMP)
+820C // 24: LDI R1, 0x0C (12)
+B3C0 // 25: ST  R1, [R7]
+8EF5 // 26: LDI R7, 0xF5 (ADC_CTRL)
+8225 // 27: LDI R1, 0x25 (EN=1, TRIG=tmr_ovf, CH=2)
+B3C0 // 28: ST  R1, [R7]
+8EF0 // 29: LDI R7, 0xF0 (TMR_CTRL)
+8201 // 2A: LDI R1, 0x01 (EN=1)
+B3C0 // 2B: ST  R1, [R7]
+8604 // 2C: LDI R3, 0x04 (4 samples)
+8EFC // 2D: LDI R7, 0xFC (loopC: ADC_STAT)
+A3C0 // 2E: LD  R1, [R7] (waitC)
+3250 // 2F: AND R1, R1, R2
+E02E // 30: BNZ 0x2E
+8EFB // 31: LDI R7, 0xFB (ADC_RCH)
+A3C0 // 32: LD  R1, [R7]
+9C01 // 33: ADDI R6, 0x01
+B380 // 34: ST  R1, [R6]
+8EFA // 35: LDI R7, 0xFA (ADC_DATA)
+A3C0 // 36: LD  R1, [R7]
+9C01 // 37: ADDI R6, 0x01
+B380 // 38: ST  R1, [R6]
+96FF // 39: ADDI R3, 0xFF (R3--)
+E02D // 3A: BNZ 0x2D
+8EF0 // 3B: LDI R7, 0xF0 (stop timer)
+B1C0 // 3C: ST  R0, [R7]
+8EF5 // 3D: LDI R7, 0xF5 (stop ADC)
+B1C0 // 3E: ST  R0, [R7]
+8EFE // 3F: LDI R7, 0xFE (IRQ_STAT)
+A3C0 // 40: LD  R1, [R7] (expect 0x07)
+9C01 // 41: ADDI R6, 0x01 (0x8B)
+B380 // 42: ST  R1, [R6]
+8204 // 43: LDI R1, 0x04 (W1C ADC_EOC)
+B3C0 // 44: ST  R1, [R7]
+A3C0 // 45: LD  R1, [R7] (expect 0x03)
+9C01 // 46: ADDI R6, 0x01 (0x8C)
+B380 // 47: ST  R1, [R6]
+823F // 48: LDI R1, 0x3F (clear remaining flags)
+B3C0 // 49: ST  R1, [R7]
+// Part D: Window watchdog interrupt on CH3 (3.0 V -> 0xE8 > 100)
+8EF9 // 4A: LDI R7, 0xF9 (ADC_THR_HI)
+8264 // 4B: LDI R1, 0x64 (100)
+B3C0 // 4C: ST  R1, [R7]
+8EFD // 4D: LDI R7, 0xFD (IRQ_EN)
+8208 // 4E: LDI R1, 0x08 (ADC_WD enable)
+B3C0 // 4F: ST  R1, [R7]
+8EF5 // 50: LDI R7, 0xF5 (ADC_CTRL)
+8233 // 51: LDI R1, 0x33 (EN=1, START=1, CH=3)
+B3C0 // 52: ST  R1, [R7]
+8EFC // 53: LDI R7, 0xFC (ADC_STAT)
+A3C0 // 54: LD  R1, [R7] (waitD)
+3250 // 55: AND R1, R1, R2
+E054 // 56: BNZ 0x54
+8EFE // 57: LDI R7, 0xFE (IRQ_STAT -> 0x0C)
+A3C0 // 58: LD  R1, [R7]
+9C01 // 59: ADDI R6, 0x01 (0x8D)
+B380 // 5A: ST  R1, [R6]
+8EFA // 5B: LDI R7, 0xFA (ADC_DATA -> 0xE8)
+A3C0 // 5C: LD  R1, [R7]
+9C01 // 5D: ADDI R6, 0x01 (0x8E)
+B380 // 5E: ST  R1, [R6]
+8EFE // 5F: LDI R7, 0xFE (IRQ_STAT)
+823F // 60: LDI R1, 0x3F
+B3C0 // 61: ST  R1, [R7] (acknowledge IRQ)
+8EFD // 62: LDI R7, 0xFD (IRQ_EN)
+B1C0 // 63: ST  R0, [R7]
+8EF9 // 64: LDI R7, 0xF9 (ADC_THR_HI)
+82FF // 65: LDI R1, 0xFF
+B3C0 // 66: ST  R1, [R7]
+// Part F: Queue 2 results, ALU pointer copy, back-to-back FIFO pops
+8EF5 // 67: LDI R7, 0xF5 (ADC_CTRL)
+8203 // 68: LDI R1, 0x03 (EN=1, START=1, CH=0 -> 0x1F)
+B3C0 // 69: ST  R1, [R7]
+8EFC // 6A: LDI R7, 0xFC (ADC_STAT)
+A3C0 // 6B: LD  R1, [R7] (waitF1)
+3250 // 6C: AND R1, R1, R2
+E06B // 6D: BNZ 0x6B
+8EF5 // 6E: LDI R7, 0xF5 (ADC_CTRL)
+8213 // 6F: LDI R1, 0x13 (EN=1, START=1, CH=1 -> 0x56)
+B3C0 // 70: ST  R1, [R7]
+8402 // 71: LDI R2, 0x02 (mask for LEVEL == 2)
+8EFC // 72: LDI R7, 0xFC (ADC_STAT)
+A3C0 // 73: LD  R1, [R7] (waitF2)
+3250 // 74: AND R1, R1, R2
+D073 // 75: BZ  0x73
+8EFA // 76: LDI R7, 0xFA (ADC_DATA address)
+19C0 // 77: ADD R4, R7, R0 (ALU op with I/O address in R7, must NOT pop!)
+A300 // 78: LD  R1, [R4] (1st pop -> 0x1F)
+AB00 // 79: LD  R5, [R4] (2nd pop -> 0x56)
+9C01 // 7A: ADDI R6, 0x01 (0x8F)
+B380 // 7B: ST  R1, [R6]
+9C01 // 7C: ADDI R6, 0x01 (0x90)
+BB80 // 7D: ST  R5, [R6]
+8EFC // 7E: LDI R7, 0xFC (ADC_STAT -> 0x10)
+A3C0 // 7F: LD  R1, [R7]
+9C01 // 80: ADDI R6, 0x01 (0x91)
+B380 // 81: ST  R1, [R6]
+// Part E: Start PWM (PRESC=0, LOAD=9, CMP=3 -> 30% duty) and HLT
+8EF1 // 82: LDI R7, 0xF1 (TMR_PRESC)
+B1C0 // 83: ST  R0, [R7]
+8EF2 // 84: LDI R7, 0xF2 (TMR_LOAD)
+8209 // 85: LDI R1, 0x09 (LOAD = 9)
+B3C0 // 86: ST  R1, [R7]
+8EF3 // 87: LDI R7, 0xF3 (TMR_CMP)
+8203 // 88: LDI R1, 0x03 (CMP = 3)
+B3C0 // 89: ST  R1, [R7]
+8EF0 // 8A: LDI R7, 0xF0 (TMR_CTRL)
+8201 // 8B: LDI R1, 0x01 (EN = 1)
+B3C0 // 8C: ST  R1, [R7]
+F000 // 8D: HLT

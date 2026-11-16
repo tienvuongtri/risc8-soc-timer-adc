@@ -1,0 +1,17 @@
+# Bo qua cac thu muc tam va ket qua mo phong/tong hop nang cua Vivado
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.gen/
+.Xil/
+
+# Bo qua cac file log, journal va dump song tam thoi
+*.jou
+*.log
+*.str
+*.wdb
+*.pb
+*.vcd
+webtalk*
